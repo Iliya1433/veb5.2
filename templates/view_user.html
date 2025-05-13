@@ -1,0 +1,68 @@
+{# Наследование от базового шаблона #}
+{% extends "base.html" %}
+
+{# Заголовок страницы #}
+{% block title %}Просмотр пользователя{% endblock %}
+
+{# Основное содержимое страницы #}
+{% block content %}
+{# Контейнер для центрирования карточки #}
+<div class="row justify-content-center">
+    {# Колонка с информацией о пользователе #}
+    <div class="col-md-8">
+        {# Карточка с информацией #}
+        <div class="card">
+            {# Заголовок карточки #}
+            <div class="card-header">
+                <h2 class="text-center">Информация о пользователе</h2>
+            </div>
+            {# Тело карточки с таблицей данных #}
+            <div class="card-body">
+                {# Таблица с информацией о пользователе #}
+                <table class="table">
+                    {# ID пользователя #}
+                    <tr>
+                        <th>ID:</th>
+                        <td>{{ user.id }}</td>
+                    </tr>
+                    {# Логин пользователя #}
+                    <tr>
+                        <th>Логин:</th>
+                        <td>{{ user.login }}</td>
+                    </tr>
+                    {# Фамилия пользователя (если есть) #}
+                    <tr>
+                        <th>Фамилия:</th>
+                        <td>{{ user.last_name or '' }}</td>
+                    </tr>
+                    {# Имя пользователя #}
+                    <tr>
+                        <th>Имя:</th>
+                        <td>{{ user.first_name }}</td>
+                    </tr>
+                    {# Отчество пользователя (если есть) #}
+                    <tr>
+                        <th>Отчество:</th>
+                        <td>{{ user.middle_name or '' }}</td>
+                    </tr>
+                    {# Роль пользователя #}
+                    <tr>
+                        <th>Роль:</th>
+                        <td>{{ user.role.name if user.role else 'Без роли' }}</td>
+                    </tr>
+                    {# Дата создания учетной записи #}
+                    <tr>
+                        <th>Дата создания:</th>
+                        <td>{{ user.created_at.strftime('%d.%m.%Y %H:%M:%S') }}</td>
+                    </tr>
+                </table>
+                
+                {# Кнопка возврата к списку пользователей #}
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">Назад к списку</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

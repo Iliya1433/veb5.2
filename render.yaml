@@ -1,0 +1,21 @@
+# Конфигурация сервисов для развертывания на Render
+services:
+  # Определение веб-сервиса
+  - type: web
+    name: user-management-system
+    env: python
+    # Команда для установки зависимостей
+    buildCommand: pip install -r requirements.txt
+    # Команда запуска приложения с использованием Gunicorn
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+    # Переменные окружения
+    envVars:
+      # Версия Python
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      # Секретный ключ для сессий (генерируется автоматически)
+      - key: SECRET_KEY
+        generateValue: true
+      # URL базы данных SQLite
+      - key: DATABASE_URL
+        value: sqlite:///instance/users.db 
